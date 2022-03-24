@@ -3,7 +3,21 @@ from django.db import models
 # Create your models here.
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=255)
+    slug = models.SlugField()
+
+    class Meta:
+        ordering = ('-title',)
+        verbose_name_plural = 'Categories'
+
+    def __str__(self) -> str:
+        return self.title
+
+
 class Post(models.Model):
+    category = models.ForeignKey(
+        Category, related_name='posts', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     intro = models.TextField()
@@ -13,6 +27,9 @@ class Post(models.Model):
     class Meta:
         ordering = ('-created_at',)
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class Comment(models.Model):
     post = models.ForeignKey(
@@ -21,3 +38,6 @@ class Comment(models.Model):
     email = models.EmailField()
     body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return self.body

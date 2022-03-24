@@ -11,7 +11,26 @@
                         <h2 class="subtitle is-4">{{ post.created_at|timesince }} ago</h2>
                         <h1 class="title">{{ post.title }}</h1>
                         <p> {{ post.body }}</p>
+                        <p><small>Category: <a href+ "{% url 'category_title' post.category.slug}">{{ post.category }}</p>
+                        <h2 class="subtitle is-4">Comments</h2>
+
+                        <form method="post" class="mb-6">
+                            {% csrf_token %}
+                            {{ form.as_p}}
+                            <div class="field">
+                                <div class="control">
+                                    <button class="button is-succes">Submit comment</button>
+                        </form>
+                        <br>
+                        {% for comment in post.comments.all%}
+                        <article class="media box">
+                            <div class="media-content">
+                                <strong>{{ comment.name  }}</strong>
+                                <small>{{ comment.created_at |timesince}} ago</small><br>
+                                {{ comment.body }}
                     </div>
+                </article>
+                {% endfor %}
                 </div>
             </div>
         </section>
