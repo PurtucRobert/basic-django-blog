@@ -10,6 +10,11 @@
                     <div class="content is-medium">
                         <h2 class="subtitle is-4">{{ post.created_at|timesince }} ago</h2>
                         <h1 class="title">{{ post.title }}</h1>
+                        {% if post.image %}
+                        <figure class="image">
+                            <img src="{{ post.image.url }}">
+                        </figure>
+                        {% endif %}
                         <p> {{ post.body }}</p>
                         <p><small>Category: <a href+ "{% url 'category_title' post.category.slug}">{{ post.category }}</p>
                         <h2 class="subtitle is-4">Comments</h2>
