@@ -1,0 +1,8 @@
+{%extends 'core/base.html' %}
+{% block title %}Success{% endblock %}
+
+{% load static %}
+{% block content %}
+<h2 class="text-primary text-center fw-medium " data-mdb-toggle="animation" data-mdb-animation-show-on-load="true" >Email sent successfully</h2>
+<img src={% static '/images/contact/email_sent_animation.gif'%} class="img-fluid" alt="Email sent successfull">
+{%endblock%}

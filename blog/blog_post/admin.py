@@ -1,6 +1,7 @@
 from re import search
 from django.contrib import admin
 from .models import Category, Post, Comment
+from django_summernote.admin import SummernoteModelAdmin
 
 
 class CommentItemInline(admin.TabularInline):
@@ -8,7 +9,8 @@ class CommentItemInline(admin.TabularInline):
     raw_id_fields = ['post']
 
 
-class PostAdmin(admin.ModelAdmin):
+class PostAdmin(SummernoteModelAdmin):
+    summernote_fields = ('body', 'title', 'intro', )
     search_fields = ['title', 'intro', 'body']
     list_display = ['title', 'intro', 'category', 'body']
     list_filter = ['category', 'created_at']

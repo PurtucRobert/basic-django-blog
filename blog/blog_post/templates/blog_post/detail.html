@@ -1,42 +1,37 @@
-{% extends 'core/base.html' %}
-{%block title%} {{ post.title}} | {% endblock %}
+{% extends "core/base.html" %}
+{% block title %}Home | {% endblock %}
+{% load static %}
 
-{%block content%}
-<section class="hero ">
-    <div class="hero-body">
-        <section class="section">
-            <div class="columns">
-                <div class="column is-8 is-offset-2">
-                    <div class="content is-medium">
-                        <h2 class="subtitle is-4">{{ post.created_at|timesince }} ago</h2>
-                        <h1 class="title">{{ post.title }}</h1>
-                        {% if post.image %}
-                        <figure class="image">
-                            <img src="{{ post.image.url }}">
-                        </figure>
-                        {% endif %}
-                        <p> {{ post.body }}</p>
-                        <p><small>Category: <a href+ "{% url 'category_title' post.category.slug}">{{ post.category }}</p>
-                        <h2 class="subtitle is-4">Comments</h2>
+    
+     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/styles/monokai-sublime.min.css">
 
-                        <form method="post" class="mb-6">
-                            {% csrf_token %}
-                            {{ form.as_p}}
-                            <div class="field">
-                                <div class="control">
-                                    <button class="button is-succes">Submit comment</button>
-                        </form>
-                        <br>
-                        {% for comment in post.comments.all%}
-                        <article class="media box">
-                            <div class="media-content">
-                                <strong>{{ comment.name  }}</strong>
-                                <small>{{ comment.created_at |timesince}} ago</small><br>
-                                {{ comment.body }}
-                    </div>
-                </article>
-                {% endfor %}
-                </div>
-            </div>
-        </section>
-{%endblock%}
+
+   {%block content%} 
+   <article class="blog-post px-3 py-5 p-md-5">
+    <div class="container single-col-max-width">
+        <header class="blog-post-header">
+            <h2 class="title mb-2">{{ post.title|safe }}</h2>
+            <div class="meta mb-3"><span class="date">Published {{post.created_at | timesince }} ago</span></span></div>
+        </header>
+        
+        <div class="blog-post-body">
+            <figure class="blog-banner">
+                {% if post.image %}
+                {% endif %}
+            </figure>
+            <p> Abstract: {{post.intro|safe}}</p>
+           <p>{{ post.body|safe}}</p> 
+            <pre>
+    {%endblock%}
+    
+
+        
+       
+    
+    <!-- Page Specific JS -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
+
+    <!-- Custom JS -->
+    <script src="/js/blog.js"></script> 
+</body>
+</html> 

@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 SITE_ID = 1
 # Application definition
+SUMMERNOTE_THEME = 'bs5'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,6 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'core.apps.CoreConfig',
     'blog_post.apps.BlogPostConfig',
+    'members.apps.MembersConfig',
+    'contact.apps.ContactConfig',
+    'bootstrap5',
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
@@ -118,11 +123,16 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
-
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, '/')
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
