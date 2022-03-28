@@ -1,3 +1,4 @@
 /env
 /blog/media/uploads/
 .vscode
+blog/blog/.env

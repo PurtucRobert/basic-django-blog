@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+import environ  # Initialise environment variables
+env = environ.Env()
+environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-(e@!&4s+=1rl5q3kphx!#5iz2ow3)dh3%9l_y%#d$)%7*j7278'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -136,3 +140,13 @@ MEDIA_ROOT = BASE_DIR / 'media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'  # new
+DEFAULT_FROM_EMAIL = 'purtuc.robert@gmail.com'
+EMAIL_HOST = 'smtp.sendgrid.net'  # new
+EMAIL_HOST_USER = 'apikey'  # new
+EMAIL_HOST_PASSWORD = env('EMAIL_API_KEY')
+EMAIL_PORT = 587  # new
+EMAIL_USE_TLS = True  # new
+CONTACT_EMAIL = 'purtuc.robert@gmail.com'
+ADMIN_EMAIL = 'purtuc.robert@gmail.com'
