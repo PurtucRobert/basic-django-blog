@@ -1,7 +1,7 @@
 {% extends "core/base.html" %}
 {% block title %}Front page{% endblock %}
 {% block content %}
-<div class="text-center">
+<div class="container text-center">
 <ul class="social-list list-inline mx-auto">
     {% for category in categories %}
         <li class="list-inline-item">
@@ -10,7 +10,8 @@
                 </form>
         </li>
     {% endfor %}
-</ul><!--//social-list-->
+</ul>
+<br/>
 </div>
     {%for post in posts%}         
         <div class="item mb-5">
@@ -22,12 +23,21 @@
                 </div>
                 <div class="col">
                     <h3><a class="title mb-1" href="{% url "post_detail" post.category.slug post.slug %}">{{post.title|safe}}</a></h3>
-                    <div class="meta mb-1"><span class="date">Published by {{user}} on {{post.created_at}}</span></div>
+                    <div class="meta mb-1"><span class="date">Published by {{post.user}} on {{post.created_at}}</span></div>
                     <div class="intro">{{ post.intro|safe }}</div>
                     <a class="text-link" href="{% url "post_detail" post.category.slug post.slug %}">Read more &rarr;</a>
                 </div><!--//col-->
             </div><!--//row-->
         </div><!--//item-->
-    {%endfor%}
+    {% endfor %}
+    <br/>
+    <nav class="blog-nav nav nav-justified my-5">
+    {% if posts.has_previous %}
+        <a class="nav-link-prev nav-item nav-link rounded-left px-5" href="?page={{ posts.previous_page_number }}">Previous<i class="arrow-prev fas fa-long-arrow-alt-left"></i></a>
+    {% endif %}
 
+    {% if posts.has_next %}
+        <a class="nav-link-next nav-item nav-link rounded-right px-3" href="?page={{ posts.next_page_number }}">Next<i class="arrow-next fas fa-long-arrow-alt-right"></i></a>
+    {% endif %}
+    </nav>
 {% endblock %}

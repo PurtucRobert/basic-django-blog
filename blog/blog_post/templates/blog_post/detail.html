@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}
-{% block title %}Home | {% endblock %}
+{% block title %} {{post.title}}{% endblock %}
 {% load static %}
 
     
@@ -15,11 +15,12 @@
         </header>
         
         <div class="blog-post-body">
+            <p>Abstract: {{post.intro|safe}}</p>
             <figure class="blog-banner">
                 {% if post.image %}
+                <a><img class="img-fluid" src={{post.image.url}}></a>
                 {% endif %}
             </figure>
-            <p> Abstract: {{post.intro|safe}}</p>
            <p>{{ post.body|safe}}</p> 
             <pre>
     {%endblock%}

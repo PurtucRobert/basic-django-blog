@@ -19,6 +19,7 @@ class Category(models.Model):
 
 
 class Post(models.Model):
+    user = models.CharField(max_length=255)
     category = models.ForeignKey(
         Category, related_name='posts', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)

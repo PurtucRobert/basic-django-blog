@@ -1,12 +1,36 @@
-from django.http import HttpResponse
+import re
+from django.conf import settings
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from blog_post.models import Post
 from blog_post.models import Category
+from core.models import Subscriber
+from django.core.mail import send_mail
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def front_page(request):
+    if request.method == "POST":
+        subscriber_email = request.POST.get('sendemail', None)
+        if subscriber_email:
+            if Subscriber.objects.filter(email=subscriber_email):
+                print(f"{subscriber_email} is already registered")
+            else:
+                subscriber = Subscriber(email=subscriber_email)
+                subscriber.save()
+                send_mail('Successfully subscribed to Robo\'s blog', 'Welcome to Robo\'s blog',
+                          subscriber_email, [settings.CONTACT_EMAIL])
+
     posts = Post.objects.all()
     categories = Category.objects.all()
+    paginator = Paginator(posts, 2)
+    page = request.GET.get('page', 1)
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
     if request.method == "GET" and 'category' in request.GET:
         value_category = Category.objects.get(title=request.GET['category'])
         posts = Post.objects.filter(category=value_category)
