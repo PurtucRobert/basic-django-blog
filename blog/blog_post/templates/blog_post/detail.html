@@ -11,7 +11,7 @@
     <div class="container single-col-max-width">
         <header class="blog-post-header">
             <h2 class="title mb-2">{{ post.title|safe }}</h2>
-            <div class="meta mb-3"><span class="date">Published {{post.created_at | timesince }} ago</span></span></div>
+            <div class="meta mb-3"><span class="date">Published {{post.created_at | timesince }} ago by {{post.user}}</span></span></div>
         </header>
         
         <div class="blog-post-body">
@@ -24,15 +24,7 @@
            <p>{{ post.body|safe}}</p> 
             <pre>
     {%endblock%}
-    
-
-        
-       
-    
-    <!-- Page Specific JS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
-
-    <!-- Custom JS -->
     <script src="/js/blog.js"></script> 
 </body>
 </html> 
