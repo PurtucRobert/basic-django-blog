@@ -2,3 +2,7 @@
 /blog/media/uploads/
 .vscode
 blog/blog/.env
+*.pyc
+*.pyo
+env
+/static

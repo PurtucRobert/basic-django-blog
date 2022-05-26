@@ -1,3 +1,4 @@
+
 {% extends "core/base.html" %}
 {% block content %}
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">  
@@ -16,33 +17,32 @@
                         <div class="row justify-content-between">
                            <div class="col-md-6">
                               <div class="form-floating">
-                                 <input type="text" class="form-control" id="title-input" name="title" >
+                                 <input type="text" class="form-control" id="title-input" name="title" value="{{ post.title }}">
                                  <label for="title-input">Title</label>
                               </div>
                            </div>
                            <div class="col-md-6">
                               <div class="dropdown">
-                                 <input type="hidden" class="dropdown" id="category" name="category" value="">
+                                 <input type="hidden" class="dropdown" id="category" name="category" value={{ post.category.id}}>
                                  <button class="btn btn-primary dropdown-toggle" href=cate type="button" id="dropdownCategory" data-bs-toggle="dropdown" aria-expanded="false">
-                                  Choose category 
+                                 {{ post.category }} 
                                  </button>
-                                 <ul class="dropdown-menu" id="dropdown_menu" aria-labelledby="dropdownMenuButton1">
+                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                     {% for category in categories%}
-                                   <li><a class="dropdown-item" value={{category.id}}>{{category.title}}</a></li>
+                                   <li><a class="dropdown-item" value={{category.id}}>{{category.title|safe}}</a></li>
                                    {% endfor %}
                                  </ul>
-                              </input>
                                </div>
                            </div>
                         <div class="mt-3">
                            <div class="form-floating">
-                           <input type="hidden" class="form-control" id="intro-input" name="intro">
+                           <input type="hidden" class="form-control" id="intro-input" name="intro" value="{{ post.intro }}">
                               <div class="summernote1" name="intro_summer_note" id="intro_summer_note"></div>
                            </div>
                         </div>
                         <div class="mt-3">
                            <div class="form-floating">
-                              <input type="hidden" class="form-control" id="body-input" name="body">
+                              <input type="hidden" class="form-control" id="body-input" name="body" value="{{ post.body }}">
                               <div class="summernote2" name="body_summer_note" id="body_summer_note"></div>
                            </div>
                         </div>
@@ -83,8 +83,17 @@
                     ]
                   }); 
                   document.getElementsByName("title")[0].addEventListener('input', modifyTitle);
+                  if(window.addEventListener) {
+                    window.addEventListener('load',populateSummerNote,false); //W3C
+                    } else {
+                    window.attachEvent('onload',populateSummerNote); //IE
+                }
                   function modifyTitle(){
                     document.getElementById("title").innerHTML = this.value
+                  }
+                  function populateSummerNote(){
+                     $("#intro_summer_note").summernote("code", document.getElementById("intro-input").value )
+                     $("#body_summer_note").summernote("code", document.getElementById("body-input").value)  
                   }
                   function submitSummerNote()
                   {
