@@ -41,7 +41,7 @@ def add_blog_post(request):
             post.save()
             return redirect("front_page")
         return render(request, "blog_post/add_blog_post.html")
-    else:
+    elif request.method == "GET":
         categories = Category.objects.all()
         return render(
             request, "blog_post/add_blog_post.html", {"categories": categories}
@@ -59,7 +59,7 @@ def edit_blog_post(request, category_slug, slug):
                 "blog_post/edit_blog_post.html",
                 {"post": post, "categories": categories},
             )
-    if request.method == "POST":
+    elif request.method == "POST":
         form_data = PostForm(request.POST, request.FILES)
         post = Post.objects.get(slug=slug)
         post.delete()
