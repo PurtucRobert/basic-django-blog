@@ -8,7 +8,7 @@ The blog supports user authentication, category based posts, email subscription 
 
 # UI
 
-![UI](https://imgur.com/a/4cZvg43)
-![UI 2](https://imgur.com/a/uVybIIL)
-![Login](https://imgur.com/a/uVybIIL)
-![Add blog post](https://imgur.com/a/Uzgj6BP)
+![UI](https://i.imgur.com/yYIdgQv.png)
+![UI 2](https://i.imgur.com/MOP708k.png)
+![Login](https://i.imgur.com/Z76ENiZ.png)
+![Add blog post](https://i.imgur.com/SxRr5dz.png)
